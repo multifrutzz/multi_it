@@ -298,10 +298,10 @@ int main() { // главная функция программы
 	#if defined(_WIN32)
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
-#elif defined(__linux__) || defined(__APPLE__)
+#elif defined(__APPLE__)
     setlocale(LC_ALL, "");
 #else
-#error Unsupported operating system
+#error Linux is not supported
 #endif
 
 	vector<Flower*> flowers(6, nullptr); // vector на 6 элементов, сначала везде nullptr
