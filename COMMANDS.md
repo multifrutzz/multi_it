@@ -114,3 +114,37 @@ mkdir -p build/objects
 ```text
 1 2 3 4 5 6 7 8 9 10 0 11 12 13 14 15 16 17 18 19 20
 ```
+
+## Статическая библиотека
+
+Создание библиотеки и просмотр её содержимого:
+
+```sh
+mkdir -p build/library
+ar crs build/library/libarraywork.a build/objects/array_io.o build/objects/array_process.o
+ar t build/library/libarraywork.a
+```
+
+В библиотеке находятся array_io.o и array_process.o.
+
+Сборка программ с подключением библиотеки:
+
+```sh
+"$CC" build/objects/program2.o -Lbuild/library -larraywork -o build/program2_static
+"$CC" build/objects/program3.o -Lbuild/library -larraywork -o build/program3_static
+```
+
+Проверка запуска:
+
+```sh
+./build/program2_static
+./build/program3_static
+```
+
+Программа 2:
+Ввод: -8 5 -3 0 7 -1 2 -6 4 0 -2 9 -4 3 -5 6 -7 1
+Результат: -8 -1 -3 0 7 5 2 -6 4 0 -2 9 -4 3 -5 6 -7 1
+
+Программа 3:
+Ввод: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+Результат: 1 2 3 4 5 6 7 8 9 10 0 11 12 13 14 15 16 17 18 19 20
