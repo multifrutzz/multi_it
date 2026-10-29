@@ -76,3 +76,21 @@ diff -u build/optimization/program1_O2.s build/optimization/program1_O3.s
 Исходный код одинаковый для всех уровней.
 На проверенном примере результаты совпали.
 Время выполнения не измерялось.
+
+## Раздельная компиляция (2 программа)
+```sh
+mkdir -p build/objects
+"$CC" -std=c11 -Wall -Wextra -Wpedantic -c array_io.c -o build/objects/array_io.o
+"$CC" -std=c11 -Wall -Wextra -Wpedantic -c array_process.c -o build/objects/array_process.o
+"$CC" -std=c11 -Wall -Wextra -Wpedantic -c program2.c -o build/objects/program2.o
+"$CC" build/objects/program2.o build/objects/array_io.o build/objects/array_process.o -o build/program2
+./build/program2
+```
+
+Проверки:
+1. В массиве -8 5 -3 0 7 -1 2 -6 4 0 -2 9 -4 3 -5 6 -7 1
+   элементы 5 и -1 поменялись местами, остальные сохранились.
+2. При замене 11-го элемента исходного массива на -1
+   обмен выполнен с первым вхождением -1, на 6-м месте.
+3. Для массива из чисел от 1 до 18 выведено сообщение
+   о невозможности обмена. Массив не изменился.
