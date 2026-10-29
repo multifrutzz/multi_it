@@ -3,3 +3,4 @@ flowers
 *.o
 *.dSYM/
 .DS_Store
+build/
